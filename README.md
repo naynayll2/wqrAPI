@@ -4,7 +4,8 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of wqrAPI is to ...
+Simple interface for querying robot data from IRVLab servers for Water Quality
+Robotics (WQR) project
 
 ## Installation
 
@@ -12,15 +13,23 @@ You can install the development version of wqrAPI from [GitHub](https://github.c
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("awasu003/giaAPI")
+devtools::install_github("naynayll2/wqrAPI")
 ```
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+The workflow is as follows: first create a request handler in "test" or "live"
+mode (only "test" works right now), then call one of four methods with the handler
+as the first argument to get data
 
 ``` r
 library(wqrAPI)
 ## basic example code
+req <- request_handler("test") # create handler in test mode
+
+names <- get_all_lake_names(req) # you need lake names in order to request info for specific lakes
+df <- get_all_lake_data(req)
+swan_data <- get_lake_data(req, "swan")
+swan_history <- get_lake_history(req, "swan")
 ```
 
