@@ -12,9 +12,18 @@
 #   Install Package:           'Ctrl + Shift + B'
 #   Check Package:             'Ctrl + Shift + E'
 #   Test Package:              'Ctrl + Shift + T'
-library(jsonlite)
-library(dplyr)
-library(tibble)
+
+#' @export
+#' @importFrom tibble as_tibble
+tibble::as_tibble
+
+#' @export
+#' @importFrom jsonlite fromJSON
+jsonlite::fromJSON
+
+#' @export
+#' @importFrom jsonlite toJSON
+jsonlite::toJSON
 
 setClass("Endpoint",
          slots = c(type = "character", data_path = "character"))
