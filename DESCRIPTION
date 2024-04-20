@@ -16,4 +16,5 @@ RoxygenNote: 7.3.1
 Imports: 
     dplyr,
     jsonlite,
-    tibble
+    tibble,
+    httr2

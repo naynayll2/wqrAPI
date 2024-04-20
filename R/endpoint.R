@@ -25,6 +25,26 @@ jsonlite::fromJSON
 #' @importFrom jsonlite toJSON
 jsonlite::toJSON
 
+#' @export
+#' @importFrom httr2 request
+httr2::request
+
+#' @export
+#' @importFrom httr2 req_method
+httr2::req_method
+
+#' @export
+#' @importFrom httr2 req_perform
+httr2::req_perform
+
+#' @export
+#' @importFrom httr2 req_body_json
+httr2::req_body_json
+
+#' @export
+#' @importFrom httr2 resp_body_json
+httr2::resp_body_json
+
 setClass("Endpoint",
          slots = c(type = "character", data_path = "character"))
 
@@ -52,7 +72,12 @@ setMethod("get_all_lake_names",
       close(lake_names_file)
       return(lake_names_json)
     } else if (endpoint@type == "live") {
-      stop("Live mode not implemented yet")
+      resp <- request(endpoint@data_path) |>
+        req_body_json(list(operation = "GetAllLakeNames")) |>
+        req_method("GET") |>
+        req_perform() |>
+        resp_body_string()
+      return(resp)
     }
     stop("Invalid endpoint type")
   }
@@ -78,7 +103,12 @@ setMethod("get_all_lake_data",
       close(lake_data_file)
       return(lake_data_json)
     } else if (endpoint@type == "live") {
-      stop("Live mode not implemented yet")
+      resp <- request(endpoint@data_path) |>
+        req_body_json(list(operation = "GetAllLakeData")) |>
+        req_method("GET") |>
+        req_perform() |>
+        resp_body_string()
+      return(resp)
     }
     stop("Invalid endpoint type")
   }
@@ -107,7 +137,12 @@ setMethod("get_lake_data",
       close(data_file)
       return(json_data)
     } else if (endpoint@type == "live") {
-      stop("Live mode not implemented yet")
+      resp <- request(endpoint@data_path) |>
+        req_body_json(list(operation = "GetLakeData", lakeName = lake_name)) |>
+        req_method("GET") |>
+        req_perform() |>
+        resp_body_string()
+      return(resp)
     }
     stop("Invalid endpoint type")
   }
@@ -140,7 +175,12 @@ setMethod("get_lake_history",
       close(data_file)
       return(json_data)
     } else if (endpoint@type == "live") {
-      stop("Live mode not implemented yet")
+      resp <- request(endpoint@data_path) |>
+        req_body_json(list(operation = "GetLakeHistory", lakeName = lake_name, startDate = start_date, endDate = end_date)) |>
+        req_method("GET") |>
+        req_perform() |>
+        resp_body_string()
+      return(resp)
     }
     stop("Invalid endpoint type")
   }
