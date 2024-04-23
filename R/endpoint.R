@@ -25,25 +25,20 @@ jsonlite::fromJSON
 #' @importFrom jsonlite toJSON
 jsonlite::toJSON
 
-#' @export
 #' @importFrom httr2 request
 httr2::request
 
-#' @export
 #' @importFrom httr2 req_method
 httr2::req_method
 
-#' @export
 #' @importFrom httr2 req_perform
 httr2::req_perform
 
-#' @export
 #' @importFrom httr2 req_body_json
 httr2::req_body_json
 
-#' @export
-#' @importFrom httr2 resp_body_json
-httr2::resp_body_json
+#' @importFrom httr2 resp_body_string
+httr2::resp_body_string
 
 setClass("Endpoint",
          slots = c(type = "character", data_path = "character"))
@@ -176,7 +171,7 @@ setMethod("get_lake_history",
       return(json_data)
     } else if (endpoint@type == "live") {
       resp <- request(endpoint@data_path) |>
-        req_body_json(list(operation = "GetLakeHistory", lakeName = lake_name, startDate = start_date, endDate = end_date)) |>
+        req_body_json(list(operation = "GetLakeHistory", lakeName = lake_name, startTime = start_date, endTime = end_date)) |>
         req_method("GET") |>
         req_perform() |>
         resp_body_string()
@@ -259,6 +254,8 @@ make_endpoint <- function(type, data_path = NULL) {
   obj@type <- type
   if (is.null(data_path)) {
     obj@data_path <- system.file("extdata", package = "wqrAPI")
+  } else {
+    obj@data_path <- data_path
   }
   obj
 }
@@ -270,8 +267,8 @@ make_endpoint <- function(type, data_path = NULL) {
 #' and "live" for deployment
 #'
 #' @export
-request_handler <- function(type) {
+request_handler <- function(type, data_path = NULL) {
   obj <- new("RequestHandler")
-  obj@endpoint <- make_endpoint(type, NULL)
+  obj@endpoint <- make_endpoint(type, data_path)
   obj
 }

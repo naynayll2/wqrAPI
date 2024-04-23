@@ -6,6 +6,11 @@
 \alias{as_tibble}
 \alias{fromJSON}
 \alias{toJSON}
+\alias{request}
+\alias{req_method}
+\alias{req_perform}
+\alias{req_body_json}
+\alias{resp_body_string}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -13,6 +18,8 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
+  \item{httr2}{\code{\link[httr2:req_body]{req_body_json}}, \code{\link[httr2]{req_method}}, \code{\link[httr2]{req_perform}}, \code{\link[httr2]{request}}, \code{\link[httr2:resp_body_raw]{resp_body_string}}}
+
   \item{jsonlite}{\code{\link[jsonlite]{fromJSON}}, \code{\link[jsonlite:fromJSON]{toJSON}}}
 
   \item{tibble}{\code{\link[tibble]{as_tibble}}}

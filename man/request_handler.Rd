@@ -4,7 +4,7 @@
 \alias{request_handler}
 \title{Returns a request handler}
 \usage{
-request_handler(type)
+request_handler(type, data_path = NULL)
 }
 \arguments{
 \item{type}{Determines if you are using a mock handler with mock data (for

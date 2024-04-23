@@ -15,7 +15,6 @@ You can install the development version of wqrAPI from [GitHub](https://github.c
 # install.packages("devtools")
 devtools::install_github("naynayll2/wqrAPI")
 ```
-
 ## Example
 
 The workflow is as follows: first create a request handler in "test" or "live"
@@ -32,4 +31,13 @@ df <- get_all_lake_data(req)
 swan_data <- get_lake_data(req, "swan")
 swan_history <- get_lake_history(req, "swan")
 ```
-
+## Using Data from A Server
+Create a variable containing the IP address or http endpoint of the server
+```r
+url <- "http://12.34.5.6.7"
+```
+Then supply that to the request handler constructor, along with a `type` of `"live"`
+```r
+req <- request_handler("live", url)
+```
+You can then use the request handler as normal!
